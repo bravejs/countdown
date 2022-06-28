@@ -11,7 +11,7 @@ State in seconds:
 declare class Countdown {
   seconds: number;
   
-  constructor(cb:? (seconds: number) => void);
+  constructor(cb?: (seconds: number) => void);
   
   start(seconds: number): void;
   

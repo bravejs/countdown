@@ -46,8 +46,8 @@ class Countdown {
   }
 
   private _set (seconds: number) {
-    this.cancel()
     if (this.seconds > seconds) {
+      this.cancel()
       this._update(seconds)
     }
   }

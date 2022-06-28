@@ -1,6 +1,6 @@
 /**
  * state in seconds:
- * -1: has not started
+ * -1: not started
  * >0: counting down
  * =0: over
  */

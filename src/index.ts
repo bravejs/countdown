@@ -52,9 +52,9 @@ class Countdown {
     }
   }
 
-  private _tick (seconds: number, startTime: number, diff: number) {
-    this._update(seconds - diff)
-    if (diff < seconds) {
+  private _tick (seconds: number, startTime: number, elapsedSeconds: number) {
+    this._update(seconds - elapsedSeconds)
+    if (elapsedSeconds < seconds) {
       this._tid = setTimeout(() => {
         this._tick(seconds, startTime, Math.floor((Date.now() - startTime) / 1000))
       }, 1000)

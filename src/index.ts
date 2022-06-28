@@ -27,8 +27,14 @@ class Countdown {
     this._set(-1)
   }
 
+  cancel () {
+    if (this.seconds > 0) {
+      clearTimeout(this._tid)
+    }
+  }
+
   destroy () {
-    this._clear()
+    this.cancel()
     this._cb = null as any
   }
 
@@ -47,15 +53,9 @@ class Countdown {
   }
 
   private _set (seconds: number) {
-    this._clear()
+    this.cancel()
     if (this.seconds > seconds) {
       this._update(seconds)
-    }
-  }
-
-  private _clear () {
-    if (this.seconds > 0) {
-      clearTimeout(this._tid)
     }
   }
 }

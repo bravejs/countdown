@@ -1,5 +1,3 @@
-type Callback = (seconds: number) => void
-
 class Countdown {
   /**
    * -1: has not started
@@ -8,16 +6,19 @@ class Countdown {
    */
   seconds: number = -1
 
-  private _tid: any = null
-  private _cb: Callback
+  private _tid: number = 0
+  private _update: (seconds: number) => void
 
-  constructor (cb: Callback) {
-    this._cb = cb
+  constructor (cb?: (seconds: number) => void) {
+    this._update = (seconds) => {
+      this.seconds = seconds
+      cb && cb(seconds)
+    }
   }
 
   start (seconds: number) {
     if (seconds > 0 && this.seconds <= 0) {
-      this._tick(seconds, Date.now(), 0)
+      this._tick(Date.now(), seconds, 0)
     }
   }
 
@@ -37,12 +38,7 @@ class Countdown {
 
   destroy () {
     this.cancel()
-    this._cb = null as any
-  }
-
-  private _update (seconds: number) {
-    this.seconds = seconds
-    this._cb(seconds)
+    this._update = null as any
   }
 
   private _set (seconds: number) {
@@ -52,11 +48,11 @@ class Countdown {
     }
   }
 
-  private _tick (seconds: number, startTime: number, elapsedSeconds: number) {
-    this._update(seconds - elapsedSeconds)
-    if (elapsedSeconds < seconds) {
+  private _tick (time: number, start: number, elapsed: number) {
+    this._update(start - elapsed)
+    if (elapsed < start) {
       this._tid = setTimeout(() => {
-        this._tick(seconds, startTime, Math.floor((Date.now() - startTime) / 1000))
+        this._tick(time, start, Math.floor((Date.now() - time) / 1000))
       }, 1000)
     }
   }

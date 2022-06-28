@@ -1,9 +1,11 @@
+/**
+ * state in seconds:
+ * -1: has not started
+ * >0: counting down
+ * =0: over
+ */
+
 class Countdown {
-  /**
-   * -1: has not started
-   * >0: counting down
-   * =0: over
-   */
   seconds: number = -1
 
   private _tid: number = 0

@@ -1,6 +1,6 @@
 # Countdown
 
-## Instance
+## Interface
 
 State in seconds:   
 + `-1`: not started
